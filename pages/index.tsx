@@ -142,11 +142,15 @@ function Card({ img }: CardProps) {
   };
 
   React.useEffect(() => {
-    cardRef.current?.style.setProperty("--mx", "0%");
-    cardRef.current?.style.setProperty("--my", "0%");
-    cardRef.current?.style.setProperty("--o", "0");
+    // Only remove the static holo pattern if there is no
+    // request animation frame
+    if (window.requestAnimationFrame) {
+      cardRef.current?.style.setProperty("--mx", "0%");
+      cardRef.current?.style.setProperty("--my", "0%");
+      cardRef.current?.style.setProperty("--o", "0");
 
-    window.requestAnimationFrame(animationCallback);
+      window.requestAnimationFrame(animationCallback);
+    }
   }, []);
 
   return (
