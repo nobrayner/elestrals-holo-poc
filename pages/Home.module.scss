@@ -1,0 +1,176 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+@property --mx {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 50%;
+}
+
+@property --my {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 50%;
+}
+
+@property --o {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@keyframes shine {
+  0% {
+    --mx: 0%;
+    --my: 0%;
+    --o: 0;
+  }
+
+  20% {
+    --mx: 20%;
+    --my: 20%;
+    --o: 1;
+  }
+
+  50% {
+    --mx: 80%;
+    --my: 80%;
+    --o: 1;
+  }
+
+  80% {
+    --mx: 80%;
+    --my: 80%;
+    --o: 0;
+  }
+
+  100% {
+    --mx: 0%;
+    --my: 0%;
+    --o: 0;
+  }
+}
+
+.card {
+  --radius: 4.55% / 3.5%;
+
+  --mx: 50%;
+  --my: 50%;
+  --s: 1;
+  --o: 1;
+  --tx: 0px;
+  --ty: 0px;
+  --rx: 0deg;
+  --ry: 0deg;
+  --pos: 50% 50%;
+  --posx: 50%;
+  --posy: 50%;
+  --hyp: 1;
+
+  animation: shine 3s ease-in-out infinite;
+
+  position: relative;
+
+  display: grid;
+
+  width: 470px;
+  aspect-ratio: 0.733;
+  border-radius: var(--radius);
+
+  img {
+    border-radius: var(--radius);
+  }
+
+  & * {
+    width: 100%;
+    display: grid;
+    grid-area: 1/1;
+    border-radius: var(--radius);
+    image-rendering: optimizeQuality;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+  }
+}
+
+.cardShine {
+  --grain: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCI+CjxmaWx0ZXIgaWQ9Im4iPgo8ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjciIG51bU9jdGF2ZXM9IjEwIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIj48L2ZlVHVyYnVsZW5jZT4KPC9maWx0ZXI+CjxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiBmaWxsPSIjMDAwIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiBmaWx0ZXI9InVybCgjbikiIG9wYWNpdHk9IjAuMyI+PC9yZWN0Pgo8L3N2Zz4=");
+
+  --space: 5%;
+  --angle: 133deg;
+  --imgsize: 500px;
+
+  --red: #f80e7b;
+  --yel: #eedf10;
+  --gre: #21e985;
+  --blu: #0dbde9;
+  --vio: #c929f1;
+
+  display: grid;
+  overflow: hidden;
+  z-index: 3;
+  transform: translateZ(1px);
+  background: transparent;
+  mix-blend-mode: color-dodge;
+  filter: brightness(0.85) contrast(2.75) saturate(0.65);
+  background-size: cover;
+  background-position: center;
+  opacity: var(--o);
+
+  &::before {
+    grid-area: 1/1;
+    transform: translateZ(1px);
+  }
+
+  &::after {
+    grid-area: 1/1;
+    transform: translateZ(1.2px);
+    border-radius: var(--radius);
+  }
+
+  &.stellar {
+    --space: 4%;
+
+    background-image: url("/galaxy_holo.jpg"), url("/galaxy_holo.jpg"),
+      url("/galaxy_holo.jpg"),
+      repeating-linear-gradient(
+        82deg,
+        rgb(219, 204, 86) calc(var(--space) * 1),
+        rgb(121, 199, 58) calc(var(--space) * 2),
+        rgb(58, 192, 183) calc(var(--space) * 3),
+        rgb(71, 98, 207) calc(var(--space) * 4),
+        rgb(170, 69, 209) calc(var(--space) * 5),
+        rgb(255, 90, 180) calc(var(--space) * 6),
+        rgb(255, 90, 180) calc(var(--space) * 7),
+        rgb(170, 69, 209) calc(var(--space) * 8),
+        rgb(71, 98, 207) calc(var(--space) * 9),
+        rgb(58, 192, 183) calc(var(--space) * 10),
+        rgb(121, 199, 58) calc(var(--space) * 11),
+        rgb(219, 204, 86) calc(var(--space) * 12)
+      ),
+      radial-gradient(
+        farthest-corner circle at var(--mx) var(--my),
+        rgba(255, 255, 255, 0.6) 5%,
+        rgba(150, 150, 150, 0.3) 40%,
+        rgb(0, 0, 0) 100%
+      );
+
+    background-blend-mode: color-dodge, color-burn, saturation, screen;
+    background-position: var(--galaxybg, cover), var(--galaxybg, cover),
+      var(--galaxybg, cover),
+      calc(((50% - var(--posx)) * 2.5) + 50%)
+        calc(((50% - var(--posy)) * 2.5) + 50%),
+      center;
+    background-size: cover, cover, cover, 400% 900%, cover;
+
+    filter: brightness(0.75) contrast(1.2) saturate(1.5);
+    mix-blend-mode: color-dodge;
+
+    mask-image: url("/SD05HydrakeStellar01_HoloMask.png");
+    mask-size: contain;
+  }
+}
